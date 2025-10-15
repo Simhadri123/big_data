@@ -1,0 +1,16 @@
+@cluster_2:UMI_ATTCCG             # record name; starts with '@'
+TTTCCGGGGCACATAATCTTCAGCCGGGCGC   # DNA sequence
++                                 # empty line; starts with '+'
+;9C;=;=<9@4868>9:67AA<9>65<=>591  # phred-scaled quality scores
+@cluster_2:UMI_ATTCCG             # record name; starts with '@'
+TTTCCGGGGCACATAATCTTCAGCCGGGCGC   # DNA sequence
++                                 # empty line; starts with '+'
+;9C;=;=<9@4868>9:67AA<9>65<=>591  # phred-scaled quality scores
+@cluster_2:UMI_ATTCCG             # record name; starts with '@'
+TTTCCGGGGCACATAATCTTCAGCCGGGCGC   # DNA sequence
++                                 # empty line; starts with '+'
+;9C;=;=<9@4868>9:67AA<9>65<=>591  # phred-scaled quality scores
+@cluster_2:UMI_ATTCCG             # record name; starts with '@'
+AAACCTTTTCACATAATCTTCAGCCGGGCGC   # DNA sequence
++                                 # empty line; starts with '+'
+;9C;=;=<9@4868>9:67AA<9>65<=>591  # phred-scaled quality scores

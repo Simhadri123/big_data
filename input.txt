@@ -1,0 +1,5 @@
+Hello world hello hadoop
+Hadoop is a powerful framework
+MapReduce is part of hadoop
+Hello world programming
+Java programming with hadoop
