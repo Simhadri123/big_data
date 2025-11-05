@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  hadoop-workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: big-data-workspace
+    hostname: hadoop-container
+    ports:
+      - "9870:9870"  # HDFS NameNode Web UI
+      - "8088:8088"  # YARN ResourceManager Web UI
+      - "9000:9000"  # HDFS NameNode IPC
+      - "8042:8042"  # YARN NodeManager Web UI
+      - "9864:9864"  # HDFS DataNode Web UI
+    volumes:
+      - .:/workspace
+    stdin_open: true
+    tty: true
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+    networks:
+      - hadoop-network
+
+networks:
+  hadoop-network:
+    driver: bridge
