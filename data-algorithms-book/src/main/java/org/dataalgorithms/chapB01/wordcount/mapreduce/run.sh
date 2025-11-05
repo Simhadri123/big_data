@@ -13,7 +13,7 @@ jar cf wordcount.jar org/
 rm -rf org/
 
 # Prepare input file
-INPUT_FILE="/home/simhadri/422247_big_data/input.txt"
+INPUT_FILE="/workspace/input.txt"
 if [ ! -f "$INPUT_FILE" ]; then
     cat > "$INPUT_FILE" << EOF
 Hello world hello hadoop

@@ -49,7 +49,7 @@ RUN echo '<?xml version="1.0" encoding="UTF-8"?>\n\
 <configuration>\n\
   <property>\n\
     <name>fs.defaultFS</name>\n\
-    <value>hdfs://localhost:9000</value>\n\
+    <value>hdfs://localhost:8020</value>\n\
   </property>\n\
   <property>\n\
     <name>hadoop.tmp.dir</name>\n\
@@ -106,8 +106,9 @@ RUN mkdir -p /opt/hadoop/tmp
 
 # Create entrypoint script
 RUN echo '#!/bin/bash\n\
+set -e\n\
 \n\
-# Start SSH service\n\
+# Start SSH service (required for some Hadoop scripts)\n\
 service ssh start\n\
 \n\
 # Format namenode if not already formatted\n\
@@ -116,17 +117,21 @@ if [ ! -d "/opt/hadoop/hdfs/namenode/current" ]; then\n\
   $HADOOP_HOME/bin/hdfs namenode -format -force\n\
 fi\n\
 \n\
-# Start Hadoop services\n\
+# Start Hadoop services without pdsh (single-node)\n\
 echo "Starting Hadoop services..."\n\
-$HADOOP_HOME/sbin/start-dfs.sh\n\
-$HADOOP_HOME/sbin/start-yarn.sh\n\
+export HDFS_NAMENODE_USER=root HDFS_DATANODE_USER=root HDFS_SECONDARYNAMENODE_USER=root\n\
+export YARN_RESOURCEMANAGER_USER=root YARN_NODEMANAGER_USER=root\n\
+hdfs --daemon start namenode\n\
+hdfs --daemon start datanode\n\
+yarn --daemon start resourcemanager\n\
+yarn --daemon start nodemanager\n\
 \n\
 # Wait for services to be ready\n\
-sleep 10\n\
+sleep 5\n\
 \n\
 # Create HDFS user directory\n\
-$HADOOP_HOME/bin/hdfs dfs -mkdir -p /user\n\
-$HADOOP_HOME/bin/hdfs dfs -chmod 777 /user\n\
+$HADOOP_HOME/bin/hdfs dfs -mkdir -p /user || true\n\
+$HADOOP_HOME/bin/hdfs dfs -chmod 777 /user || true\n\
 \n\
 echo "Hadoop services started successfully!"\n\
 echo "HDFS Web UI: http://localhost:9870"\n\
@@ -134,6 +139,11 @@ echo "YARN Web UI: http://localhost:8088"\n\
 echo ""\n\
 echo "Workspace mounted at: /workspace"\n\
 echo "Usage: ./run.sh /workspace/<path-to-script>"\n\
+\n\
+# Make the wrapper available in /workspace for convenience\n\
+if [ ! -e "/workspace/run.sh" ]; then\n\
+  ln -sf /run.sh /workspace/run.sh\n\
+fi\n\
 \n\
 # Execute command or keep container running\n\
 if [ "$#" -eq 0 ]; then\n\
@@ -166,13 +176,23 @@ if [ ! -x "$SCRIPT_PATH" ]; then\n\
   echo "Making script executable..."\n\
   chmod +x "$SCRIPT_PATH"\n\
 fi\n\
-\n\
+\
 SCRIPT_DIR=$(dirname "$SCRIPT_PATH")\n\
 SCRIPT_NAME=$(basename "$SCRIPT_PATH")\n\
-\n\
+\
 echo "Changing to directory: $SCRIPT_DIR"\n\
 cd "$SCRIPT_DIR" || exit 1\n\
-\n\
+\
+echo "Ensuring Hadoop services are running..."\n\
+if ! jps | grep -q NameNode; then\n\
+  export HDFS_NAMENODE_USER=root HDFS_DATANODE_USER=root HDFS_SECONDARYNAMENODE_USER=root\n\
+  export YARN_RESOURCEMANAGER_USER=root YARN_NODEMANAGER_USER=root\n\
+  hdfs --daemon start namenode || true\n\
+  hdfs --daemon start datanode || true\n\
+  yarn --daemon start resourcemanager || true\n\
+  yarn --daemon start nodemanager || true\n\
+  sleep 2\n\
+fi\n\
 echo "Executing: ./$SCRIPT_NAME"\n\
 echo "=========================================="\n\
 ./"$SCRIPT_NAME"' > /run.sh
