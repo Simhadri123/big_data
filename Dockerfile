@@ -23,11 +23,15 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and install Hadoop 3.3.6
-RUN wget -q https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz && \
-    tar -xzf hadoop-3.3.6.tar.gz && \
-    mv hadoop-3.3.6 /opt/hadoop && \
-    rm hadoop-3.3.6.tar.gz
+# Download and install Hadoop 3.3.4
+# Using multiple mirrors for reliability
+RUN set -x && \
+    (wget https://archive.apache.org/dist/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz || \
+     wget https://downloads.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz || \
+     wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.4/hadoop-3.3.4.tar.gz) && \
+    tar -xzf hadoop-3.3.4.tar.gz && \
+    mv hadoop-3.3.4 /opt/hadoop && \
+    rm hadoop-3.3.4.tar.gz
 
 # Configure SSH for Hadoop
 RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \

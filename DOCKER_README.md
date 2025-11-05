@@ -14,6 +14,9 @@ This Docker setup provides a complete Hadoop environment for running your big da
 
 - Docker installed on your system
 - Docker Compose (optional, but recommended)
+- Internet connection for Docker to download Hadoop during build
+
+**Note:** The Docker build requires internet access to download Hadoop. If you see build errors related to downloading Hadoop, ensure your Docker daemon has internet access. See BUILD_NOTE.md for more details.
 
 ## Quick Start
 
