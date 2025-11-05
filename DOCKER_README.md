@@ -5,7 +5,7 @@ This Docker setup provides a complete Hadoop environment for running your big da
 ## Features
 
 - **Java 8**: Required for Hadoop and MapReduce jobs
-- **Hadoop 3.3.6**: Complete Hadoop distribution with HDFS and YARN
+- **Hadoop 3.3.4**: Complete Hadoop distribution with HDFS and YARN
 - **Workspace Mounting**: Your local directory is mounted at `/workspace` in the container
 - **Easy Script Execution**: Run any `run.sh` script using the wrapper command
 - **Web UIs**: Access Hadoop web interfaces from your browser
