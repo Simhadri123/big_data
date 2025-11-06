@@ -1,0 +1,33 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts
+*.class
+*.jar
+build/
+target/
+dist/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Hadoop/HDFS directories (if accidentally created locally)
+hdfs/
+logs/
+tmp/
+
+# Docker files (don't need to copy these into the image)
+Dockerfile
+docker-compose.yml
+.dockerignore

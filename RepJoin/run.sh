@@ -10,5 +10,5 @@ hdfs dfs -rm -r /user/spatial_input /user/spatial_output /user/spatial_output_ph
 hdfs dfs -mkdir -p /user/spatial_input
 hdfs dfs -put spatial_data.txt /user/spatial_input/
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-hadoop jar crepjoin.jar CRepJoin hdfs://localhost:9000/user/spatial_input hdfs://localhost:9000/user/spatial_output
+hadoop jar crepjoin.jar CRepJoin /user/spatial_input /user/spatial_output
 hdfs dfs -cat /user/spatial_output/part-r-00000

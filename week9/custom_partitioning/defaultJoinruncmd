@@ -1,0 +1,3 @@
+/opt/spark/bin/spark-submit   --class RetailDataJoinDefault   --master local[*]   /opt/spark/work-dir/RetailDataJoinDefault.jar
+
+

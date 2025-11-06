@@ -1,0 +1,32 @@
+# Java compiled files
+*.class
+
+# JAR files (except those in data-algorithms-book)
+/*.jar
+!wordcount-chapB01.jar
+
+# Build directories
+build/
+target/
+dist/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Hadoop/HDFS local directories (if created)
+hdfs/
+tmp/
+logs/
+
+# Output files
+output/
+*.log
+
+# Docker volumes (if using named volumes)
+.docker-volumes/
