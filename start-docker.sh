@@ -72,7 +72,7 @@ if [ "$USE_COMPOSE" = true ]; then
     echo "  docker-compose down"
     echo ""
 else
-    docker build -t big-data-workspace .
+    docker build --progress=plain -t bigdata-hadoop .
     
     if [ $? -ne 0 ]; then
         echo "❌ Build failed"

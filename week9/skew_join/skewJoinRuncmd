@@ -1,0 +1,3 @@
+/opt/spark/bin/spark-submit   --class SharesSkewRetailJoin   --master local[*]   /opt/spark/work-dir/SharesSkewRetailJoin.jar
+
+

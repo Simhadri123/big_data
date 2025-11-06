@@ -1,0 +1,3 @@
+/opt/spark/bin/spark-submit --class CustomPartitionerRetailDataJoin --master local[*] CustomPartitionerRetailDataJoin.jar
+
+

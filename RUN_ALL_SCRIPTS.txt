@@ -41,3 +41,16 @@
 
 # --- 4) (Optional) Stop container ---
  docker-compose down
+
+# --- 3b) Week 7+ Spark/MR examples ---
+ # Week 7: Spatial Join (MapReduce)
+ docker-compose exec hadoop-workspace /run.sh /workspace/week7/spatial_join/run.sh
+
+ # Week 9: Custom partitioning joins (Spark)
+ docker-compose exec hadoop-workspace /run.sh /workspace/week9/custom_partitioning/run.sh
+
+ # Week 9: Skew join with shares (Spark)
+ docker-compose exec hadoop-workspace /run.sh /workspace/week9/skew_join/run.sh
+
+ # Week 10: Set similarity join (Spark)
+ docker-compose exec hadoop-workspace /run.sh /workspace/week10/set_similarity_join/run.sh
